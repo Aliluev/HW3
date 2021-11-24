@@ -170,7 +170,18 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public E remove(int index) {
-        return null;
+
+        Node<E> temporary_first=first;
+
+        for(int i=0;i<index-1;i++){
+            temporary_first=temporary_first.next;
+        }
+        Node<E> deleteObject=temporary_first.next;
+        temporary_first.next=temporary_first.next.next;
+        temporary_first.next.next.prev=temporary_first;
+        size--;
+        return deleteObject.data;
+
     }
 
     @Override

@@ -19,6 +19,8 @@ public class Main {
         myLinkedList.set(1,"ra-ta-ta");
         System.out.println(myLinkedList.toString());
         System.out.println(myLinkedList.toArray().toString());
+        myLinkedList.forEach(System.out::println);
+        System.out.println(myLinkedList.remove(1));
     }
 
 }
