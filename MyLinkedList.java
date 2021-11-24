@@ -1,6 +1,7 @@
 package com.mycompany.collection;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class MyLinkedList<E> implements ILinkedList<E> {
 
@@ -104,7 +105,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
          */
 
         for(int i=0;i<index;i++){
-            System.out.println(temporary_first.data+"В цикле");
+         //   System.out.println(temporary_first.data+"В цикле");
             temporary_first=temporary_first.next;
            // first.next;
             //first=first.next;
@@ -128,18 +129,43 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
-    public void clear() {
+    public void clear(int index) {
+        Node<E> temporary_first=first;
 
+        for(int i=0;i<index-1;i++){
+            temporary_first=temporary_first.next;
+        }
+        temporary_first.next=temporary_first.next.next;
+        temporary_first.next.next.prev=temporary_first;
+        size--;
     }
 
     @Override
     public E get(int index) {
-        return null;
+        Node<E> temporary_first=first;
+
+        for(int i=0;i<index;i++){
+            temporary_first=temporary_first.next;
+        }
+        return temporary_first.data;
     }
 
     @Override
     public int indexOf(E element) {
-        return 0;
+        Node<E> temporary_first=first;
+        if(temporary_first.data.equals(element)){
+            return 0;
+        }
+        for(int i=0;i<=size;i++){
+         //   System.out.println("size="+size);
+         //   System.out.println("-------зашёл в цикл---------");
+            temporary_first=temporary_first.next;
+            if(temporary_first.data.equals(element)){
+                return i+1;
+            }
+        }
+
+        return -1;
     }
 
     @Override
@@ -149,27 +175,64 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void set(int index, E element) {
+        Node<E> temporary_first=first;
+
+        for(int i=0;i<index-1;i++){
+
+            temporary_first=temporary_first.next;
+
+        }
+        Node<E> temporary_between=new Node<>(element,temporary_first.next.next,temporary_first);
+        temporary_first.next.next.prev=temporary_between;
+        temporary_first.next=temporary_between;
 
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
-    public <E1> E1[] toArray(E1[] e) {
-        return null;
+    public <E1> E1[] toArray(E1[] a) {
+        if (a.length < size)
+            a = (E1[])java.lang.reflect.Array.newInstance(
+                    a.getClass().getComponentType(), size);
+        int i = 0;
+        Object[] result = a;
+        for (Node<E> x = first; x != null; x = x.next)
+            result[i++] = x.data;
+
+        if (a.length > size)
+            a[size] = null;
+
+        return a;
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] result = new Object[size];
+        int i = 0;
+        for (Node<E> x = first; x != null; x = x.next)
+            result[i++] = x.data;
+        return result;
     }
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < size;
+            }
+
+            @Override
+            public E next() {
+                return get(index++);
+            }
+        };
     }
 
 
