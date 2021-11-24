@@ -4,6 +4,9 @@ package com.mycompany.collection;
 
 public interface ILinkedList<E> extends Iterable<E> {
 
+    void insertFirst(E element);
+    void insertLast(E element);
+    void insertBetween(int index, E element);
     void add(E element);
     void add(int index,E element);
     void clear();
