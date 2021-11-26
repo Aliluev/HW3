@@ -5,16 +5,11 @@ public class Circle implements Comparable<Circle>{
     private String color="red";
     public Circle(){
     }
-    public Circle(double radius)throws Exception{
-        if(radius<=0){
-            throw new Exception("radius<=0!!!");
-        }
+    public Circle(double radius){
+
         this.radius=radius;
     }
-    public Circle(double radius, String color) throws Exception {
-        if(radius<=0){
-            throw new Exception("radius<=0!!!");
-        }
+    public Circle(double radius, String color) {
         this.radius=radius;
         this.color=color;
     }
@@ -28,9 +23,7 @@ public class Circle implements Comparable<Circle>{
     }
 
     public void setRadius(double radius)throws Exception {
-        if(radius<=0){
-            throw new Exception("radius<=0!!!");
-        }
+
         this.radius = radius;
     }
 

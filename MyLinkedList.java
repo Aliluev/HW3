@@ -68,20 +68,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
     @Override
     public void insertLast(E element) {
-        /*
-        Node<E> temporary_last=last;
-        Node<E> temporary_last2;
-        //Node<E> temporary_first=first;
-        //last=first;
-        temporary_last2=new Node<>(element,null,last);
-        last.next=temporary_last2;
-        System.out.println(last.next.data);
-        last=temporary_last2;
-        last.prev.next=last;
-        System.out.println(last.data);
-        size++;
 
-         */
         Node<E> temporary_last=new Node<>(element,null,last);
         last.next=temporary_last;
         last=temporary_last;
@@ -92,26 +79,15 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     @Override
     public void insertBetween(int index, E element){
         Node<E> temporary_first=first;
-        /*
-        for(int i=0;i<index;i++){
-            temporary_first=temporary_first.next;
-        }
-        Node<E> temporary_between=new Node<>(element,first.next,first.prev);
-        System.out.println(first.prev.next.data);
-        first.prev.next=temporary_between;
-        first.next.prev=temporary_between;
-        size++;
 
-         */
 
         for(int i=0;i<index;i++){
-         //   System.out.println(temporary_first.data+"В цикле");
+
             temporary_first=temporary_first.next;
-           // first.next;
-            //first=first.next;
+
         }
         Node<E> temporary_between=new Node<>(element,temporary_first.next,temporary_first);
-//        System.out.println(first.prev.next.data);
+
         temporary_first.next=temporary_between;
         size++;
 
@@ -157,8 +133,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
             return 0;
         }
         for(int i=0;i<=size;i++){
-         //   System.out.println("size="+size);
-         //   System.out.println("-------зашёл в цикл---------");
+ 
             temporary_first=temporary_first.next;
             if(temporary_first.data.equals(element)){
                 return i+1;
