@@ -2,6 +2,7 @@ package com.mycompany.collection.list;
 import com.mycompany.collection.list.ILinkedList;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 
 public class MyLinkedList<E> implements ILinkedList<E> {
@@ -31,54 +32,18 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     private int size = 0;
 
 
-    @Override
-    public void insertFirst(E element) {
 
-        Node<E> firstNode = first;
-        Node<E> newNode = new Node<>( element, firstNode,null);
-        if (firstNode == null) {
-            last = newNode;
-            first = newNode;
-        }
-        else {
-            firstNode.prev = newNode;
-            first=newNode;
-        }
-        size++;
-
-       // System.out.println(first.data+" add");
-
-        /*
-
-        if(size==0){
-            last=new Node<>(element,null,null);
-            first=new Node<>(element,null,null);
-            System.out.println("в нуле");
-            size++;
-        } else {
-            Node<E> temporary_last=last;
-            Node<E> temporary_first=first;
-            last=first;
-            first=new Node<>(element,first,null);
-            System.out.println("Не в нуле");
-            size++;
-        }
-
-         */
-    }
 
     @Override
-    public void insertLast(E element) {
-
+    public void add(E element) {
         Node<E> temporary_last=new Node<>(element,null,last);
         last.next=temporary_last;
         last=temporary_last;
         size++;
-
     }
 
     @Override
-    public void insertBetween(int index, E element){
+    public void add(int index, E element) {
         Node<E> temporary_first=first;
 
 
@@ -96,25 +61,18 @@ public class MyLinkedList<E> implements ILinkedList<E> {
 
 
     @Override
-    public void add(E element) {
-        insertFirst(element);
-    }
-
-    @Override
-    public void add(int index, E element) {
-      insertBetween(index,element);
-    }
-
-    @Override
-    public void clear(int index) {
-        Node<E> temporary_first=first;
-
-        for(int i=0;i<index-1;i++){
-            temporary_first=temporary_first.next;
+    public void clear() {
+        Node<E> x = first;
+        while (x != null) {
+            Node<E> next = x.next;
+            x.data = null;
+            x.next = null;
+            x.prev = null;
+            x = next;
         }
-        temporary_first.next=temporary_first.next.next;
-        temporary_first.next.next.prev=temporary_first;
-        size--;
+        first = last = null;
+        size = 0;
+
     }
 
     @Override
@@ -181,9 +139,9 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     }
 
     @Override
-    public <E1> E1[] toArray(E1[] a) {
+    public <A> A[] toArray(A[] a) {
         if (a.length < size)
-            a = (E1[])java.lang.reflect.Array.newInstance(
+            a = (A[])java.lang.reflect.Array.newInstance(
                     a.getClass().getComponentType(), size);
         int i = 0;
         Object[] result = a;
@@ -241,4 +199,38 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return stringBuilder.toString();
 
     }
+
+
+    /*
+    public void addFirst(E element) {
+        Node<E> firstNode = first;
+        Node<E> newNode = new Node<>( element, firstNode,null);
+        if (firstNode == null) {
+            last = newNode;
+            first = newNode;
+        }
+        else {
+            firstNode.prev = newNode;
+            first=newNode;
+        }
+        size++;
+    }
+
+     */
+
+      /*
+    @Override
+    public void clear(int index) {
+        Node<E> temporary_first=first;
+
+        for(int i=0;i<index-1;i++){
+            temporary_first=temporary_first.next;
+        }
+        temporary_first.next=temporary_first.next.next;
+        temporary_first.next.next.prev=temporary_first;
+        size--;
+    }
+
+     */
+
 }
